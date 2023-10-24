@@ -1,0 +1,90 @@
+#!/usr/bin/python3
+"""
+Gets json file and reformat file
+"""
+import json
+import os
+import pyinputplus as pyip
+import sys
+import io
+import requests
+
+
+def url_validate(path):
+    """
+    Checks if path is a valid url
+    """
+    try:
+        my_response = requests.get(path)
+        my_response.raise_for_status()
+    except requests.exceptions.HTTPError:
+        print("===============================================")
+        print("|  Sorry the link you provided doesn't exist  |")
+        print("===============================================")
+        exit(404)
+    except requests.exceptions.MissingSchema:
+        print("========================================")
+        print("|  Sorry, you provided an invalid url  |")
+        print("========================================")
+        exit(1)
+    return path
+
+def is_github_file(path):
+    """
+    Checks if path is a URL to a valid file on a repo
+    """
+    # validate url
+    url_validate(path)
+    # confirm url could point at a github file to reduce unneccessary requests
+    domains = path.split('/')
+    if len(domains) < 6:
+        print("===================================================")
+        print("|  Link doesn't doesn't point at a specific file  |")
+        print("===================================================")
+        exit(1)
+    my_json = requests.get(path)
+    try:
+        return my_json.json()
+    except json.JSONDecodeError as json_error:
+        if "</html>" in my_json.text:
+            print("========================================================")
+            print("|  Link doesn't doesn't point at a file rather a page  |")
+            print("========================================================")
+            exit(1)
+
+def curl(path):
+    """
+    Gets rawlines of file
+    """
+    my_response = is_github_file(path)
+    try:
+        raw_lines = my_response['payload']['blob']['rawLines']
+        return(raw_lines)
+    except KeyError:
+        print("==============================================================")
+        print("|  Sorry, the files you specified seems to have some issues  |")
+        print("==============================================================")
+        exit(1)
+
+def format_json(path):
+    """
+    Reads get.json and write new formatted json
+    """
+    # get filename
+    path_list = path.split('/')
+    print(path_list[-1])
+    filename = path_list[-1]
+
+    file_lines = curl(path)
+
+    if os.path.exists(filename):
+        print("File Exists alread!!!\nAny futher action will truncate the existing file")
+    with open(filename, 'w', encoding='utf-8') as f:
+            for line in file_lines:
+                f.write(line + '\n')
+
+
+if __name__ == '__main__':
+    path = pyip.inputURL("Enter URL to file to read: ", limit=1)
+    format_json(path)
+    exit (0)
