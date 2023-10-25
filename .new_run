@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
-# Package file getter
-
-
+get_file_from_github_using_python_request()
+ {
+/home/shegz/git_file_container/new/.git_file/.py_get $@
+}
 if (( $# == 0 ))
 then
 	echo "Usage: git_file <url to github file>"
 	exit 1
 fi
+
+args=""
+for arg in "$@"
+do
+	args+="$arg "
+done
 
 echo -e "\n" > .gets.log
 echo -e "Entered URL" >> .gets.log
@@ -14,7 +21,7 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "$1" >> .gets.log
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "================================================" >> .gets.log
-echo "$1" | ~/git_copy/py_get >> .gets.log 2>&1
+echo "$args" | get_file_from_github_using_python_request >> .gets.log 2>&1
 value=$?
 
 if (( $value == 0 ))

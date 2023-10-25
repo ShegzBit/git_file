@@ -4,10 +4,10 @@ Gets json file and reformat file
 """
 import json
 import os
-import pyinputplus as pyip
 import sys
 import io
 import requests
+import shlex
 
 
 def url_validate(path):
@@ -38,9 +38,9 @@ def is_github_file(path):
     # confirm url could point at a github file to reduce unneccessary requests
     domains = path.split('/')
     if len(domains) < 6:
-        print("===================================================")
-        print("|  Link doesn't doesn't point at a specific file  |")
-        print("===================================================")
+        print("==========================================================")
+        print("|  Link doesn't doesn't point at a specific github file  |")
+        print("==========================================================")
         exit(1)
     my_json = requests.get(path)
     try:
@@ -66,25 +66,61 @@ def curl(path):
         print("==============================================================")
         exit(1)
 
-def format_json(path):
+def git_file(path, isTrunc, filename):
     """
-    Reads get.json and write new formatted json
+    Writes cloned file to the same file name in pwd
     """
     # get filename
     path_list = path.split('/')
     print(path_list[-1])
-    filename = path_list[-1]
+    if filename == "":
+        filename = path_list[-1]
 
     file_lines = curl(path)
 
     if os.path.exists(filename):
-        print("File Exists alread!!!\nAny futher action will truncate the existing file")
+        if not isTrunc:
+            print('File exists but truncate on file exist option -t was not specified')
+            exit(444)
     with open(filename, 'w', encoding='utf-8') as f:
             for line in file_lines:
                 f.write(line + '\n')
 
+def get_args(args):
+    """
+    Get's arguments from file
+    """
+    arguments = shlex.split(args)
+    valid_args = ['-t', '-r']
+    path = ""
+    filename=""
+    isTrunc = False
+    for counts, x in enumerate(arguments):
+        # check for arguments
+        if x.startswith('-'):
+            if x not in valid_args:
+                print("invalid argument passed to git_file\nUsage: git_file <options> <arguments>")
+                exit(414)
+            # handle for truncate on file exists argument
+            elif x == "-t":
+                isTrunc = True
+            # handle for rename file argument
+            if x == "-r":
+                if len(arguments) <= counts + 1:
+                    print("File Name missing\nUsage: git_file -r <filename> <other arguments>")
+                    exit(424)
+                elif (not arguments[counts + 1].startswith("https://") and
+                      arguments[counts + 1] not in valid_args):
+                    filename = arguments[counts + 1]
+        if x.startswith("h"):
+            path = x
+    if path == "":
+        print("valid URL missing from arguments\nUsage: git_file <options> <arguments>")
+        exit(434)
+    git_file(path, isTrunc, filename)
+
 
 if __name__ == '__main__':
-    path = pyip.inputURL("Enter URL to file to read: ", limit=1)
-    format_json(path)
+    path = input("Enter URL to file to read: ")
+    get_args(path)
     exit (0)
