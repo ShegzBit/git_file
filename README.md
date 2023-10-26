@@ -49,7 +49,7 @@ source ~/.bashrc
 * Click on the file and copy the link
 then run `git_file <file url>`
 *Sample*
-![link img](./'link img')
+![link img] (./'link img')
 `git_file https://github.com/ShegzBit/alx-higher_level_programming/blob/main/0x0E-SQL_more_queries/101-avg_temperatures.sql`
 and the file will be added
 ![dir img](./'dir img')
@@ -63,7 +63,8 @@ and the file will be added
 !dir img
 
 *-r specified*
-![git\_file -r](./'git_file -r')
+
+![git\_file -r]('git_file -r')
 
 #### -t Option
 `-t`
