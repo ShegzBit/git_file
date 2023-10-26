@@ -17,22 +17,22 @@ This repo contains a `git_file` utility that can be used to clone single files f
 * Modular Projects: For modular projects where different parts of the codebase are loosely coupled and can function independently, cloning only the necessary modules/files can be more practical.
 
 ### How To Install
-* Clone this repo locally on your sytem
+* Clone this repo locally on your system
 * enter the directory
 * run the configuration file
 * leave the directory and source bashrc
 * You're ready to use _git_file_
 #### More Detailed Instruction
-* First run this to clone the repo
+* First run this to clone the repo \
 `git clone https://github.com/ShegzBit/git_file`
-* Enter the directory
+* Enter the directory\
 `cd git_file`
-* Run configuration file
+* Run configuration file\
 `./configuration.sh`
-leave the directory
+* Leave the directory\
 `cd ..`
-source your bashrc file
-`source ~/.bashrc`
+* source your bashrc file\
+`source ~/.bashrc`\
 *__Now You're ready to use git_file utility__*
 
 #### Installation Code Block
@@ -47,12 +47,12 @@ source ~/.bashrc
 ### How to use
 * Navigate to the repo you which to clone
 * Click on the file and copy the link
-then run `git_file <file url>`
-*Sample*
-![link img] (./'link img')
+* Then run `git_file <file url>`\
+*__Sample__*\
 `git_file https://github.com/ShegzBit/alx-higher_level_programming/blob/main/0x0E-SQL_more_queries/101-avg_temperatures.sql`
+![link img](link%20img)
 and the file will be added
-![dir img](./'dir img')
+![dir img](dir%20img)
 
 ### Options and Features
 #### -r Option
@@ -70,10 +70,16 @@ and the file will be added
 `-t`
 * truncates a file if it already exists and write new content to it
 * if not specified and the file already exists the program preserves the file and fails saying truncate option not passed
-![git\_file -t](./'git_file -t')
+![git\_file -t](git_file%20-t)
 
 Thanks for using my utility feel free to suggest new features and I'll look into it when I'm free
 You can conect with me on
+
 Linkedin: [Feranmi Awotubo](https://www.linkedin.com/in/feranmi-awotubo-a2ba2b263/)
+
 Twitter: [Feranmi Awotubo](https://twitter.com/feranmiawotubo1)
+
 Telegram: [Feranmi Awotubo](t.me/+2347089043898)
+
+
+_Note: This program doesn't work with executables_
