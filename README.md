@@ -64,7 +64,7 @@ and the file will be added
 
 *-r specified*
 
-![git\_file -r]('git_file -r')
+![git\_file -r](git_file -r)
 
 #### -t Option
 `-t`
