@@ -1,0 +1,75 @@
+
+
+Thu Oct 26 13:55:09 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/git_file/blob/master/link%20img
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Enter URL to file to read: link%20img
+Traceback (most recent call last):
+  File "/home/shegz/.git_file/.py_get", line 131, in <module>
+    get_args(path)
+  File "/home/shegz/.git_file/.py_get", line 126, in get_args
+    git_file(path, isTrunc, filename)
+  File "/home/shegz/.git_file/.py_get", line 92, in git_file
+    for line in file_lines:
+TypeError: 'NoneType' object is not iterable
+
+
+Thu Oct 26 13:59:25 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/git_file/blob/master/link%20img
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Enter URL to file to read: link%20img
+File exists but truncate on file exist option -t was not specified
+
+
+Thu Oct 26 13:59:35 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/git_file/blob/master/link%20img
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Enter URL to file to read: link%20img
+===============================================================
+|  Sorry, This program does not support raw files or executable|
+===============================================================
+If you wish to add this functionality or contribute in anyway,
+head to the repo and get my contact info from the readme :) 
+
+
+Thu Oct 26 14:08:29 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/git_file/blob/master/link%20img
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/git_file/blob/master/link%20img...
+Filename from repolink%20img
+link%20img
+Local filenamemake
+===============================================================
+|  Sorry, This program does not support raw files or executable|
+===============================================================
+If you wish to add this functionality or contribute in anyway,
+head to the repo and get my contact info from the readme :) 
+
+
+Thu Oct 26 14:10:04 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/git_file/blob/master/link%20img
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/git_file/blob/master/link%20img ...
+Filename from repo link%20img
+link%20img
+Local filename make
+===============================================================
+|  Sorry, This program does not support raw files or executable|
+===============================================================
+If you wish to add this functionality or contribute in anyway,
+head to the repo and get my contact info from the readme :) 

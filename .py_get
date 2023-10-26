@@ -72,9 +72,11 @@ def git_file(path, isTrunc, filename):
     """
     # get filename
     path_list = path.split('/')
+    print(f"Filename from repo {path_list[-1]}")
     print(path_list[-1])
     if filename == "":
         filename = path_list[-1]
+    print(f"Local filename {filename}")
 
     file_lines = curl(path)
 
@@ -82,6 +84,12 @@ def git_file(path, isTrunc, filename):
         if not isTrunc:
             print('File exists but truncate on file exist option -t was not specified')
             exit(444)
+    if file_lines is None:
+        print("===============================================================")
+        print("|  Sorry, This program does not support raw files or executable|")
+        print("===============================================================")
+        print("If you wish to add this functionality or contribute in anyway,\nhead to the repo and get my contact info from the readme :) ")
+        exit(454)
     with open(filename, 'w', encoding='utf-8') as f:
             for line in file_lines:
                 f.write(line + '\n')
@@ -112,15 +120,16 @@ def get_args(args):
                 elif (not arguments[counts + 1].startswith("https://") and
                       arguments[counts + 1] not in valid_args):
                     filename = arguments[counts + 1]
-        if x.startswith("h"):
+        if x.startswith("http"):
             path = x
     if path == "":
         print("valid URL missing from arguments\nUsage: git_file <options> <arguments>")
         exit(434)
+    print(path + " ...")
     git_file(path, isTrunc, filename)
 
 
 if __name__ == '__main__':
-    path = input("Enter URL to file to read: ")
+    path = input("Cloning ")
     get_args(path)
     exit (0)
