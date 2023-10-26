@@ -10,7 +10,8 @@ do
 	args+="$arg "
 done
 
-echo -e "\n" > .gets.log
+echo -e "\n" >> .gets.log
+echo -e "$(date)" >> .gets.log
 echo -e "Entered URL" >> .gets.log
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "$1" >> .gets.log

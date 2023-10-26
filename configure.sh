@@ -14,7 +14,6 @@ git_alias="git_file()\n {\n"$program" "\$@"\n}"
 py_get_alias="get_file_from_github_using_python_request()\n {\n"$py_get" "\$@"\n}"
 
 echo -e "$git_alias" >> ~/.bashrc
-echo -e "$py_get_alias" >> ~/.bashrc
 
 # set up new_run
 
@@ -22,3 +21,5 @@ echo '#!/usr/bin/env bash' > .new_run
 echo -e $py_get_alias >> .new_run
 cat .run.sh >> .new_run
 chmod 755 .new_run
+
+mv configure.sh .configure.sh

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 get_file_from_github_using_python_request()
  {
-/home/shegz/git_file_container/new/.git_file/.py_get $@
+/home/shegz/.git_file/.py_get $@
 }
 if (( $# == 0 ))
 then
@@ -15,7 +15,8 @@ do
 	args+="$arg "
 done
 
-echo -e "\n" > .gets.log
+echo -e "\n" >> .gets.log
+echo -e "$(date)" >> .gets.log
 echo -e "Entered URL" >> .gets.log
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "$1" >> .gets.log
