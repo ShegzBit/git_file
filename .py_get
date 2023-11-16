@@ -8,6 +8,7 @@ import sys
 import io
 import requests
 import shlex
+from functools import reduce
 
 
 def url_validate(path):
@@ -52,19 +53,48 @@ def is_github_file(path):
             print("========================================================")
             exit(1)
 
+def handle_multiple_files(file_list):
+    """
+    Handles the cloning of multiple files
+    """
+
+def get_files_in_dir(dir_name, json_response):
+    """
+    Gets the lists of files from dir if specified link points to a dir
+    """
+    file_list = []
+    # print(json.dumps(json_response['payload'], indent=2))
+    # return
+    file_dicts = json_response['payload']['tree']['items']
+    """
+    Each fileDict looks like
+    {
+       "name": "__pycache__",
+        "path": "models/__pycache__",
+        "contentType": "directory"
+    },
+    """
+    file_list = filter((lambda file_dict : file_dict['contentType'] == 'file'), file_dicts)
+    file_list = reduce(lambda accumulator, file_obj: accumulator + [dir_name + '/' +file_obj['path'].split('/')[-1]],
+                       file_list, [])
+    return file_list
+
 def curl(path):
     """
     Gets rawlines of file
     """
     my_response = is_github_file(path)
+    print(f'Path is {path}')
     try:
         raw_lines = my_response['payload']['blob']['rawLines']
         return(raw_lines)
     except KeyError:
-        print("==============================================================")
-        print("|  Sorry, the files you specified seems to have some issues  |")
-        print("==============================================================")
-        exit(1)
+        if (my_response['payload']):
+            path = (my_response['payload'].get('path', "doesn't exist"))
+        if path == "doesn't exist":
+            return
+        dir_name = path.split('/')[-1]
+        return get_files_in_dir(dir_name, my_response)
 
 def git_file(path, isTrunc, filename):
     """
@@ -85,9 +115,9 @@ def git_file(path, isTrunc, filename):
             print('File exists but truncate on file exist option -t was not specified')
             exit(444)
     if file_lines is None:
-        print("===============================================================")
+        print("================================================================")
         print("|  Sorry, This program does not support raw files or executable|")
-        print("===============================================================")
+        print("================================================================")
         print("If you wish to add this functionality or contribute in anyway,\nhead to the repo and get my contact info from the readme :) ")
         exit(454)
     with open(filename, 'w', encoding='utf-8') as f:
@@ -125,7 +155,7 @@ def get_args(args):
     if path == "":
         print("valid URL missing from arguments\nUsage: git_file <options> <arguments>")
         exit(434)
-    print(path + " ...")
+    print(path + "...")
     git_file(path, isTrunc, filename)
 
 

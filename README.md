@@ -18,9 +18,9 @@ This repo contains a `git_file` utility that can be used to clone single files f
 
 ### How To Install
 * Clone this repo locally on your system
-* enter the directory
-* run the configuration file
-* leave the directory and source bashrc
+* Enter the directory
+* Eun the configuration file
+* Leave the directory and source bashrc
 * You're ready to use _git_file_
 #### More Detailed Instruction
 * First run this to clone the repo \
@@ -31,7 +31,7 @@ This repo contains a `git_file` utility that can be used to clone single files f
 `./configuration.sh`
 * Leave the directory\
 `cd ..`
-* source your bashrc file\
+* Source your bashrc file\
 `source ~/.bashrc`\
 *__Now You're ready to use git_file utility__*
 
@@ -73,7 +73,7 @@ and the file will be added
 ![git\_file -t](git_file%20-t)
 
 Thanks for using my utility feel free to suggest new features and I'll look into it when I'm free
-You can conect with me on
+You can connect with me on
 
 Linkedin: [Feranmi Awotubo](https://www.linkedin.com/in/feranmi-awotubo-a2ba2b263/)
 

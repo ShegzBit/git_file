@@ -1,0 +1,163 @@
+
+
+Thu Nov 16 00:38:24 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+models/engine
+================================================================
+|  Sorry, This program does not support raw files or executable|
+================================================================
+If you wish to add this functionality or contribute in anyway,
+head to the repo and get my contact info from the readme :) 
+
+
+Thu Nov 16 00:39:58 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+models/engine
+
+
+Thu Nov 16 00:42:26 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+models/engine
+
+
+Thu Nov 16 00:43:51 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+models/engine
+I got here
+
+
+Thu Nov 16 00:57:10 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connection.py", line 200, in _new_conn
+    sock = connection.create_connection(
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -5] No address associated with hostname
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py", line 790, in urlopen
+    response = self._make_request(
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py", line 1092, in _validate_conn
+    conn.connect()
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connection.py", line 604, in connect
+    self.sock = sock = self._new_conn()
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connection.py", line 207, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x7f0be108f2b0>: Failed to resolve 'github.com' ([Errno -5] No address associated with hostname)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/connectionpool.py", line 844, in urlopen
+    retries = retries.increment(
+  File "/usr/local/lib/python3.10/dist-packages/urllib3/util/retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /ShegzBit/AirBnB_clone/tree/main/models/engine (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f0be108f2b0>: Failed to resolve 'github.com' ([Errno -5] No address associated with hostname)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/shegz/.git_file/.py_get", line 141, in <module>
+    get_args(path)
+  File "/home/shegz/.git_file/.py_get", line 136, in get_args
+    git_file(path, isTrunc, filename)
+  File "/home/shegz/.git_file/.py_get", line 88, in git_file
+    file_lines = curl(path)
+  File "/home/shegz/.git_file/.py_get", line 65, in curl
+    my_response = is_github_file(path)
+  File "/home/shegz/.git_file/.py_get", line 37, in is_github_file
+    url_validate(path)
+  File "/home/shegz/.git_file/.py_get", line 18, in url_validate
+    my_response = requests.get(path)
+  File "/usr/local/lib/python3.10/dist-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /ShegzBit/AirBnB_clone/tree/main/models/engine (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f0be108f2b0>: Failed to resolve 'github.com' ([Errno -5] No address associated with hostname)"))
+
+
+Thu Nov 16 00:57:19 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine...
+Filename from repo engine
+engine
+Local filename engine
+================================================
+
+
+
+
+Thu Nov 16 00:59:21 WAT 2023
+Entered URL
+++++++++++++++++++++++++++++++++++++++++++++++++++
+https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine/file_storage.py
+++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================
+Cloning https://github.com/ShegzBit/AirBnB_clone/tree/main/models/engine/file_storage.py...
+Filename from repo file_storage.py
+file_storage.py
+Local filename file_storage.py
+================================================
+
+
