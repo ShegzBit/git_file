@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+args="$@"
+pattern="https*"
+links=()
+options=()
+for arg in $args
+do
+	if [[ $arg =~ $pattern ]]
+	then
+		links+=($arg)
+	else
+		options+=($arg)
+	fi
+done
+for link in $links
+do
+	echo "$link ${options[@]}"
+done

@@ -85,7 +85,7 @@ def get_files_in_dir(path, json_response):
     dir_name = path.split('/')[-1]
     file_list = []
 
-    file_dicts = json_response['payload']['tree']['items']
+    content_dicts = json_response['payload']['tree']['items']
 
     """
     Each fileDict looks like
@@ -95,9 +95,17 @@ def get_files_in_dir(path, json_response):
         "contentType": "directory"
     },
     """
-    file_dicts = filter((lambda file_dict : file_dict['contentType'] == 'file'), file_dicts)
+    file_dicts = filter((lambda file_dict : file_dict['contentType'] == 'file'), content_dicts)
+    dir_dicts = list(filter((lambda file_dict : file_dict['contentType'] == 'directory'), content_dicts))
+
     file_list = reduce(lambda accumulator, file_obj: accumulator + [file_obj['path'].split('/')[-1]],
                        file_dicts, [])
+    dir_list = reduce(lambda accumulator, file_obj: accumulator + [file_obj['path'].split('/')[-1]],
+                       dir_dicts, [])
+
+    dir_link_list = list(map(lambda dir: path + '/' + dir, dir_list))
+
+    print(dir_link_list)
 
     if os.path.exists(dir_name):
         if not isRename:
@@ -110,6 +118,20 @@ def get_files_in_dir(path, json_response):
         os.mkdir(useName)
     else:
         os.mkdir(dir_name)
+
+    pwd = os.getcwd()
+    if len(dir_link_list) > 0:
+        new_wd = dir_link_list[0].split('/')[-2]
+        os.chdir(new_wd)
+        if os.getcwd() == new_wd:
+            print(f"Change to dir ==>> {new_wd}")
+        else:
+            print(f'Failed to switch to {new_wd}')
+    for link in dir_link_list:
+        print('Again')
+        git_file(link, isTrunc, '/'.join(link.split('/')[-2:]))
+    if not (os.getcwd() == pwd):
+        os.chdir(pwd)
     handle_multiple_files(file_list, path)
 
 def curl(path):
@@ -153,7 +175,7 @@ def git_file(path, isTrunc, filename):
         print("|  Sorry, This program does not support raw files or executable|")
         print("================================================================")
         print("If you wish to add this functionality or contribute in anyway,\nhead to the repo and get my contact info from the readme :) ")
-        exit(454)
+        return(454)
     with open(filename, 'w', encoding='utf-8') as f:
             for line in file_lines:
                 f.write(line + '\n')

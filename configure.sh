@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
+which python > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+	sudo apt-get install python3
+	if [ $? -ne 0 ]; then
+		echo 'Failed to install python'
+	else
+		pip3 install requests
+		if [ $? -ne 0 ]; then
+			echo 'Failed to install requests'
+		fi
+	fi
+else
+	pip show requests > /dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		 pip3 install requests
+                	if [ $? -ne 0 ]; then
+                        	echo 'Failed to install requests'
+	                fi
+	fi
+fi
+	
 mv ../git_file ../.git_file
 cd ../.git_file
 

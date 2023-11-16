@@ -24,7 +24,6 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "================================================" >> .gets.log
 echo "$args" | get_file_from_github_using_python_request >> .gets.log 2>&1
 value=$?
-echo "Exited with error code: $value"
 
 if (( $value == 0 ))
 then
