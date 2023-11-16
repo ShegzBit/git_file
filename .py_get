@@ -10,6 +10,13 @@ import requests
 import shlex
 from functools import reduce
 
+# Note Use of Global variable isTrunc, isRename and useName
+# To track values across files though this is not good practice,
+# it's used to prevent codebase wide refactoring that could lead to more bugs
+# than the global variable could in the long run
+# In case of errors always check to make sure you confirm the globals first
+# see you future Feranmi :)
+
 
 def url_validate(path):
     """
@@ -53,19 +60,33 @@ def is_github_file(path):
             print("========================================================")
             exit(1)
 
-def handle_multiple_files(file_list):
+def handle_multiple_files(file_list, path):
     """
     Handles the cloning of multiple files
     """
+    file_paths = list(map(lambda filename : path + '/' + filename, file_list))
+    for path in file_paths:
+        # if useName is not set then new dir was not created and the last
+        # see git_files_in_dir for more info
+        # two path in file link should be the filename
+        # else the filename should be the useName i.e newly created dir
+        # + filename i.e last path in link
+        if not useName:
+            filename = '/'.join(path.split('/')[-2:])
+        else:
+            filename = useName + '/' + path.split('/')[-1]
+        git_file(path, isTrunc, filename)
+     
 
-def get_files_in_dir(dir_name, json_response):
+def get_files_in_dir(path, json_response):
     """
     Gets the lists of files from dir if specified link points to a dir
     """
+    dir_name = path.split('/')[-1]
     file_list = []
-    # print(json.dumps(json_response['payload'], indent=2))
-    # return
+
     file_dicts = json_response['payload']['tree']['items']
+
     """
     Each fileDict looks like
     {
@@ -74,27 +95,38 @@ def get_files_in_dir(dir_name, json_response):
         "contentType": "directory"
     },
     """
-    file_list = filter((lambda file_dict : file_dict['contentType'] == 'file'), file_dicts)
-    file_list = reduce(lambda accumulator, file_obj: accumulator + [dir_name + '/' +file_obj['path'].split('/')[-1]],
-                       file_list, [])
-    return file_list
+    file_dicts = filter((lambda file_dict : file_dict['contentType'] == 'file'), file_dicts)
+    file_list = reduce(lambda accumulator, file_obj: accumulator + [file_obj['path'].split('/')[-1]],
+                       file_dicts, [])
+
+    if os.path.exists(dir_name):
+        if not isRename:
+            print('A file or Dir with the given name already exists but -r to rename dir was specified\nAborting...')
+            exit(585)
+    # if useName was set then user planned to rename check function get_args
+    # for more info
+    # else user is sure that he doesn't have that dir locally yet
+    if not useName is None:
+        os.mkdir(useName)
+    else:
+        os.mkdir(dir_name)
+    handle_multiple_files(file_list, path)
 
 def curl(path):
     """
     Gets rawlines of file
     """
     my_response = is_github_file(path)
-    print(f'Path is {path}')
     try:
         raw_lines = my_response['payload']['blob']['rawLines']
         return(raw_lines)
     except KeyError:
         if (my_response['payload']):
-            path = (my_response['payload'].get('path', "doesn't exist"))
-        if path == "doesn't exist":
+            dir_path = (my_response['payload'].get('path', "doesn't exist"))
+        if dir_path == "doesn't exist":
             return
-        dir_name = path.split('/')[-1]
-        return get_files_in_dir(dir_name, my_response)
+        get_files_in_dir(path, my_response)
+        return {"isDir": True}
 
 def git_file(path, isTrunc, filename):
     """
@@ -109,6 +141,8 @@ def git_file(path, isTrunc, filename):
     print(f"Local filename {filename}")
 
     file_lines = curl(path)
+    if type(file_lines) == dict and file_lines["isDir"]:
+        return
 
     if os.path.exists(filename):
         if not isTrunc:
@@ -132,7 +166,12 @@ def get_args(args):
     valid_args = ['-t', '-r']
     path = ""
     filename=""
+    global isTrunc
+    global isRename
+    global useName
     isTrunc = False
+    isRename = False
+    useName = None
     for counts, x in enumerate(arguments):
         # check for arguments
         if x.startswith('-'):
@@ -144,12 +183,13 @@ def get_args(args):
                 isTrunc = True
             # handle for rename file argument
             if x == "-r":
+                isRename = True
                 if len(arguments) <= counts + 1:
                     print("File Name missing\nUsage: git_file -r <filename> <other arguments>")
                     exit(424)
                 elif (not arguments[counts + 1].startswith("https://") and
                       arguments[counts + 1] not in valid_args):
-                    filename = arguments[counts + 1]
+                    useName = filename = arguments[counts + 1]
         if x.startswith("http"):
             path = x
     if path == "":
