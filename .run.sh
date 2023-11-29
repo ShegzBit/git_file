@@ -17,10 +17,9 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "$1" >> .gets.log
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++" >> .gets.log
 echo "================================================" >> .gets.log
-echo "$args" | get_file_from_github_using_python_request >> .gets.log 2>&1
-value=$?
+get_file_from_github_using_python_request "${args[@]}" >> .gets.log 2>&1
 
-if (( $value == 0 ))
+if [ $? -eq 0 ]
 then
 	echo -e "\033[0;32m-----------OK-------------\033[0m"
 	echo "================================================" >> .gets.log

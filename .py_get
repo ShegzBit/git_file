@@ -9,6 +9,8 @@ import io
 import requests
 import shlex
 from functools import reduce
+import sys
+import re
 
 # Note Use of Global variable isTrunc, isRename and useName
 # To track values across files though this is not good practice,
@@ -220,8 +222,68 @@ def get_args(args):
     print(path + "...")
     git_file(path, isTrunc, filename)
 
+def concat_args(lists):
+    """
+    concat arguments to their appropraite options
+    """
+    # link -r name -t link
+    main_list = []
+    for count, arg in enumerate(lists):
+        i = count + 1
+        if arg.startswith("https"):
+            while i < len(lists):
+                if lists[i].startswith("https"):
+                    break
+                arg = f"{arg} {lists[i]}"
+                i += 1
+            main_list.append(arg)
+    return main_list
+
+def handle_M_option(lists):
+    """
+    Handles -m option in argument to program
+    """
+    return_list = []
+    length = len(lists)
+    m_option = False
+    for count, arg in enumerate(lists):
+        if arg =="-m":
+            m_option = True
+            default_link = lists[count - 1]
+            continue
+        if m_option:
+            arg = f"{default_link}/{arg}"
+            return_list.append(arg)
+    if default_link in return_list:
+        return_list.remove(default_link)
+    return return_list
+
+def abstract_handler_M(args):
+    """
+    breaks the concated args into lists again so it's suitable for operation
+    of handler_M_option
+    concated args will be a list similar to
+    [https://github.com/ShegzBit/AirBnB_clone/blob/main/models -m file1 file2 file3,
+    https://github.com/ShegzBit/AirBnB_clone/blob/main/models -m file1 file2 file3,
+    https://github.com/ShegzBit/AirBnB_clone/blob/main/models -m file1 file2 file3]
+    This function makes it work on each one like a separate command to the program
+    """
+    working_list = []
+    for arg in args:
+        if "-m" in arg:
+            new_list = arg.split(" ")
+            working_list.extend(handle_M_option(new_list))
+        else:
+            working_list.append(arg)
+    for arg in working_list:
+        get_args(arg)
+                
+
+def main(args):
+    new_args = concat_args(args)
+    abstract_handler_M(new_args)
+
 
 if __name__ == '__main__':
-    path = input("Cloning ")
-    get_args(path)
-    exit (0)
+    args = sys.argv[1:]
+    main(args)

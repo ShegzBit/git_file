@@ -3,11 +3,11 @@
 which python > /dev/null 2>&1
 if [ $? -ne 0 ]
 then
-	sudo apt-get install python3
+	sudo apt-get install python3 > /dev/null 2>&1
 	if [ $? -ne 0 ]; then
 		echo 'Failed to install python'
 	else
-		pip3 install requests
+		pip3 install requests > /dev/null 2>&1
 		if [ $? -ne 0 ]; then
 			echo 'Failed to install requests'
 		fi
@@ -15,7 +15,7 @@ then
 else
 	pip show requests > /dev/null 2>&1
 	if [ $? -ne 0 ]; then
-		 pip3 install requests
+		 pip3 install requests > /dev/null 2>&1
                 	if [ $? -ne 0 ]; then
                         	echo 'Failed to install requests'
 	                fi
